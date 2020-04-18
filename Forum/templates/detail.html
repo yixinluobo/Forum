@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% block title %}贴子详情{% endblock %}
+{% block link %}
+    <link rel="stylesheet" type="text/css" href="/static/css/detail.css"/>
+{% endblock %}
+{% block main %}
+    <div class="content">
+        <div class="content-left">
+            <div class="title">
+                <h3>{{ post.title }}</h3>
+            </div>
+            <div class="post-detail">
+                {{ post.content }}
+                <br>
+                <img src="/media/{{ post.post_img }}" alt="">
+                <div class="zan"></div>
+            </div>
+            <!-- 回复帖子-->
+            <h3>回帖：</h3>
+            <div class="reply_mian">
+                {% for comment in comments %}
+                    <div class="floor_list">
+                        <div class="lf">
+                            <p>{{ comment.user.username }}</p>
+                            <div>
+                                <img src="/media/{{ comment.user.photo }}"/>
+                            </div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="rf">
+                            <p class="title">
+                                <span>发表于 {{ comment.create_time|date:'Y-m-d H:m:s' }}</span>
+                                <span class="comment_id" style="opacity: 1;">{{ comment.pk }}</span>
+                                <span style="margin-left: 100px;">获赞：<b class="huozan">{{ comment.zan_nums }}</b></span>
+                                <span class="zan">顶<img src="/static/img/反对.png"
+                                                        style="width: 20px;" alt=""></span>
+                            </p>
+                            <p class="content">
+                                {{ comment.content }}
+                            </p>
+                            <p class="bottom">
+                                <span class="show-resv-form"><strong>回复</strong></span>
+                                <span class="show-resv"><b>点击查看评论</b></span>
+                            </p>
+                            <!-- 回复帖子表单 -->
+                            <div class="resv-form" style="display: none;">
+                                <form action="" method="post" class="reply_form">
+                                    <input type="hidden" name="comment_id" value="{{ comment.pk }}">
+                                    <input type="text" name="content" value="">
+                                    <input class="reply_form_btn" type="button" value="提交">
+                                </form>
+                            </div>
+                            <div class="comment_list" show="no">
+                                <!-- 回贴一 -->
+                                {% for reply in replies %}
+                                    {% if reply.comment.pk == comment.pk %}
+                                <div class="list_main">
+                                    <img src="/media/{{ reply.user.photo }}" alt="">
+                                    <p class="content">{{ reply.content }}</p>
+                                    <div><span>{{ reply.create_time|date:'Y-m-d H:m:s' }}</span><span>回复</span></div>
+                                </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+            <!-- 发表回帖 -->
+            <div class="comment">
+                <h3>发表回帖</h3>
+                <form action="" method="post" id="comment_form">
+                    <textarea class="comment-content" name="content" rows="5" cols="100"
+                              placeholder="输入回帖内容..."></textarea>
+                </form>
+                <button type="button" class="comment_btn btn btn-success">发表</button>
+            </div>
+        </div>
+
+        <div class="content-right">
+            <div class="autor-info">
+                <img src="/media/{{ user.photo }}" alt="">
+                <p>作者：{{ user.username }}</p>
+                <p>浏览：{{ post.browse_nums }}</p>
+                <p>发表时间：{{ post.create_time|date:'Y-m-d H:m:s' }}</p>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+        $(function () {
+            // 查看回复
+            $('.show-resv').click(function () {
+                if ($(this).parent().siblings('.comment_list').css('display') == 'none') {
+                    $(this).parent().siblings('.comment_list').css('display', 'block');
+                } else {
+                    $(this).parent().siblings('.comment_list').css('display', 'none');
+                }
+            });
+            // 回复贴子评论
+            $('.show-resv-form').click(function () {
+                if ($(this).parent().siblings('.resv-form').css('display') == 'none') {
+                    $(this).parent().siblings('.resv-form').css('display', 'block');
+                } else {
+                    $(this).parent().siblings('.resv-form').css('display', 'none');
+                }
+            });
+
+            // 赞
+            $('.zan').click(function () {
+                if ($(this).text() == '顶') {
+                    $(this).text('已赞');
+                    let a = parseInt($(this).prev().children('b').text());
+                    $(this).prev().children('b').text(a + 1);
+                    $(this).append('<img style="width:20px;" src="/static/img/支持.png">');
+                    let comment_id = $(this).prev().prev().text();
+                    $.ajax({
+                        url: '/post/comment/' + comment_id,
+                        method: 'GET',
+                        success: function (data) {
+                            if (data.msg == '点赞成功') {
+                                console.log(data.msg);
+                            }
+                        }
+                    })
+                }
+            });
+
+            // 提交评论
+            $('.comment_btn').click(function () {
+                let content = $('.comment-content').val();
+                if (content == '') {
+                    $('.comment-content').css('border', '1px solid red');
+                    return false;
+                } else {
+                    $.ajax({
+                        url: '/post/comment/{{ post.pk }}',
+                        method: 'POST',
+                        dataType: 'json',
+                        data: $('#comment_form').serialize(),
+                        success: function (data) {
+                            if (data.msg == '评论成功') {
+                                window.location.reload();
+                            }
+                        }
+                    })
+                }
+            });
+            // 回复评论
+            $('.reply_form_btn').click(function () {
+                $.ajax({
+                    url: '/post/reply',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: $(this).parent('form').serialize(),
+                    success: function (data) {
+                        if(data.msg=='回复成功'){
+                            window.location.reload();
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+{% endblock %}

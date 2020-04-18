@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %}登录{% endblock %}
+{% block link %}
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css"/>
+{% endblock %}
+{% block main %}
+    <script>
+    function changeImg(ths) {
+        // 硬编码
+        ths.src = '/user/check_code/?temp=' + Math.random();
+    }
+    </script>
+    <div class="content">
+        <div class="content-left">
+            <form action="" method="post" id="login-form">
+                <label for="username">用户名:</label>
+                <input type="text" name="username" id="username" value=""/>
+                <b></b><br>
+                <label for="password">密 码:</label>
+                <input type="password" name="password" id="password" value=""/>
+                <b></b><br>
+                <label for="confirm_code">验证码:</label>
+                <input type="text" name="confirm_code" id="confirm_code" value=""/>
+                <img src="/user/check_code" onclick="changeImg(this)" class="img">
+            </form>
+            <button type="button" class="btn-login btn btn-warning">登录</button>
+            <span style="color: red" id="tishi"></span>
+        </div>
+
+        <div class="content-right">
+            <img src="/static/img/校徽.jpg" alt="">
+            <form action="/user/query" method="get">
+                <input type="text" name="q" value="" placeholder="请输入关键词">
+                <input type="submit" value="搜索贴子"/>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        $(function () {
+            $('.btn-login').click(function () {
+                let username = $('#username').val();
+                let password = $('#password').val();
+                let confirm_code = $('#confirm_code').val();
+                if (username == '' || password == '' || confirm_code == '') {
+                    $('#tishi').text('请填写完整');
+                }else{
+                    $('#tishi').text('');
+                    $.ajax({
+                        url: '/user/login',
+                        method: 'post',
+                        dataType: 'json',
+                        data: $('#login-form').serialize(),
+                        success: function (data) {
+                            if(data.msg=='验证码错误'){
+                                $('#tishi').text('验证码错误');
+                                return false;
+                            }else if(data.msg=='登录成功'){
+                                window.location.href = '/';
+                            }else{
+                                $('#tishi').text('用户名或密码错误');
+                                return false;
+                            }
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+{% endblock %}

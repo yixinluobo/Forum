@@ -1,0 +1,40 @@
+.content-left {
+    text-align: left;
+    padding: 140px 0;
+    border-right: 2px solid #D8D8D8;
+    margin-left: 300px;
+}
+.content-left .btn-login{
+	margin-left: 150px;
+}
+.content-left form img {
+    position: relative;
+    top: 0;
+    left: 10px;
+    border: 1px solid #c7ddef;
+}
+
+.content-left form label {
+    width: 60px;
+    text-align: justify;
+}
+
+.content-left form input {
+    width: 280px;
+    height: 40px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.content-right {
+    text-align: center;
+}
+
+.content-right img {
+    width: 90%;
+    margin-bottom: 10px;
+}
+
+.content-right form {
+    margin-bottom: 10px;
+}

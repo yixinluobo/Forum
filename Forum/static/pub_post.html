@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>发布贴子</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/public.css"/>
+		<link rel="stylesheet" type="text/css" href="css/pub_post.css"/>
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="wa"></div>
+		<div class="header">
+			<div class="school"><a href="">哈商大论坛</a></div>
+			<div class="header-right">
+				<a href="">登录</a>|
+				<a href="">注册</a>
+			</div>
+		</div>
+		<!-- 内容 -->
+		<div class="content">
+			<div class="content-left">
+				<h3 style="width: 100%; text-align: center;">编辑帖子</h3>
+				<form id="pub_post_form" action="/user/pub_post" method="post" enctype="multipart/form-data">
+					<label for="post_title">标题:</label>
+					<input type="text" name="title" id="post_title" value="">
+					<b></b><br>
+					<label for="post_content">内容:</label>
+					<textarea name="content" id="post_content" cols="40" rows="5" placeholder="说点什么..."></textarea>
+					<b></b><br>
+					<label for="post_type">类型:</label>
+					        <select name="post_type" id="post_type">
+						<option value="校园随谈">校园随谈</option>
+						<option value="校园八卦">校园八卦</option>
+						<option value="学习交流">学习交流</option>
+						<option value="校园活动">校园活动</option>
+						<option value="跳蚤市场">跳蚤市场</option>
+						<option value="失物招领">失物招领</option>
+					</select>
+					<b></b><br>
+					<label for="">配图:</label>
+					<input type="text" id="peitu_name" value="" placeholder="点此配图">
+					<input type="file" name="image" value="" id="peitu">
+				</form>
+				<div class="peitu_show">
+					<span>图片预览</span>
+					<img src="" alt="">
+				</div>
+				<button id="pub_post" type="button" class="btn btn-info">发表</button>
+			</div>
+			
+			<div class="content-right">
+				<img src="./img/校徽.jpg" alt="">
+				<form action="" method="post">
+					<input type="text" name="" id="" placeholder="请输入关键词">
+					<input type="submit" value="搜索贴子"/>
+				</form>
+			</div>
+		</div>
+		<!-- 底部栏 -->
+		<div class="footer">
+			版权所有@校园论坛设计
+		</div>
+	</body>
+	<script>
+	    $(function () {
+	        // 处理图片
+	        $('#peitu').change(function () {
+	            let file = $('#peitu')[0].files[0];
+	            let name = file.name;
+	            let size = file.size;
+	            let type = file.type;
+	            if (type != 'image/jpeg' && type != 'image/png') {
+	                $('#peitu_name').val('仅支持.jpg/.png格式图片');
+	                $('#peitu_name').css('color', 'red');
+	                return false;
+	            } else {
+	                $('#peitu_name').val(name);
+	            }
+	            let r = new FileReader();
+	            r.readAsDataURL(file);
+	            r.onload=function () {
+	                $('.peitu_show span').css('display', 'none');
+	                $('.peitu_show img').attr('src', r.result);
+	            };
+	        });
+	        // 提交数据
+	        $('#pub_post').click(function () {
+	            let title = $('#post_title').val();
+	            if(title == ''){
+	                $('#post_title').next().text('请输入标题');
+	                return false;
+	            }else{
+	                $('#post_title').next().text('');
+	            }
+	            let content = $('#post_content').val();
+	            if(content==''){
+	                $('post_content').next().text('还没说点什么');
+	                return false;
+	            }else{
+	                $('post_content').next().text('');
+	            }
+	            let post_type = $("#post_type").val();
+	            if(post_type==''){
+	                $('#post_type').next().text('请选择贴子类型');
+	                return false;
+	            }else{
+	                $('#post_type').next().text('');
+	            }
+	            let current_user = $('#login a').text();
+	            if(current_user == '登录'||current_user.search('驾校')!=-1){
+	                alert('请使用非驾校用户登录');
+	                return false;
+	            }
+	            // 提交
+	            $('#pub_post_form').submit();
+	        })
+	    })
+	    </script>
+</html>

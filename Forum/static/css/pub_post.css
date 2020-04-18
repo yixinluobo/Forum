@@ -1,0 +1,69 @@
+.content-left{
+	border-right: 2px solid #DBDBDB;
+}
+.content-left form{
+    width: 100%;
+    /*height: 600px;*/
+    /*border: 1px solid red;*/
+    padding-left: 30%;
+    margin-top: 20px;
+}
+.content-left form label{
+    width: 60px;
+    line-height: 40px;
+    text-align: center;
+}
+.content-left form input{
+    width: 300px;
+    height: 40px;
+    border: 2px solid #adadad;
+    border-radius: 5px;
+}
+.content-left #peitu{
+    position: absolute;
+    margin-left: 65px;
+    margin-top: -45px;
+    opacity: 0;
+}
+.content-left #post_content{
+    border-radius: 5px;
+    border: 2px solid #adadad;
+}
+.content-left #post_type{
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+    border: 2px solid #adadad;
+}
+.content-left .peitu_show{
+    margin-left: 35%;
+    width: 150px;
+    height: 150px;
+    border: 1px solid #adadad;
+}
+.content-left .peitu_show span{
+    line-height: 150px;
+    margin-left: 50px;
+    color: #adadad;
+}
+.content-left .peitu_show img{
+    width: 150px;
+    height: 150px;
+}
+.content-left .btn-info{
+    width: 300px;
+    margin-left: 35%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.content-right{
+	text-align: center;
+}
+.content-right img{
+	width: 90%;
+	margin-bottom: 10px;
+}
+.content-right form{
+	margin-bottom: 10px;
+}

@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block title %}用户注册{% endblock %}
+{% block link %}
+    <link rel="stylesheet" type="text/css" href="/static/css/register.css"/>
+{% endblock %}
+{% block main %}
+    <div class="content">
+        <div class="content-left">
+            <span class="reg_title">用户注册</span>
+            <div class="register">
+                <div class="peitu_show">
+                    <span>图片预览</span>
+                    <img src="" alt="">
+                </div>
+                <form id="myform" action="/user/register" method="post" enctype="multipart/form-data">
+                    <label for="peitu">头像:</label>
+                    <input type="text" id="peitu_name" value="" placeholder="点此配图">
+                    <input type="file" name="image" value="" id="peitu">
+                    <b></b><br>
+                    <label for="username">用户名</label>
+                    <input id="username" type="text" placeholder="请设置用户名" name="username" value="">
+                    <b></b><br>
+                    <label for="sex">性别</label>
+                    <select name="sex" id="sex" style="padding: 8px 0;">
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                    </select>
+                    <b></b><br>
+                    <label for="birthday">出身日期</label>
+                    <input id="birthday" type="date" name="birthday" value="">
+                    <b></b><br>
+                    <label for="email">邮箱</label>
+                    <input id="email" type="email" name="email" placeholder="填写正确邮箱以便找回密码" value="">
+                    <b></b><br>
+                    <label for="pwd">设置密码</label>
+                    <input id="pwd" type="password" name="password" placeholder="设置密码" value="">
+                    <b></b><br>
+                    <label for="">确认密码</label>
+                    <input id="confirm_pwd" type="password" placeholder="确认密码" value="">
+                    <b></b><br>
+                </form>
+                <button id="register" type="button" class="btn btn-success">注册</button>
+                <a id="re_login" href="javascript:void(0)">已有账号，登录</a>
+            </div>
+        </div>
+
+        <div class="content-right">
+            <img src="/static/img/校徽.jpg" alt="">
+            <form action="/user/query" method="get">
+                <input type="text" name="q" value="" placeholder="请输入关键词">
+                <input type="submit" value="搜索贴子"/>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        $(function () {
+            // 处理图片
+            $('#peitu').change(function () {
+                let file = $('#peitu')[0].files[0];
+                let name = file.name;
+                let size = file.size;
+                let type = file.type;
+                if (type != 'image/jpeg' && type != 'image/png') {
+                    $('#peitu_name').val('仅支持.jpg/.png格式图片');
+                    $('#peitu_name').css('color', 'red');
+                    return false;
+                } else {
+                    $('#peitu_name').val(name);
+                }
+                let r = new FileReader();
+                r.readAsDataURL(file);
+                r.onload = function () {
+                    $('.peitu_show span').css('display', 'none');
+                    $('.peitu_show img').attr('src', r.result);
+                };
+            });
+            $('#re_login').click(function () {
+                $('.login').css('display', 'block');
+            });
+            // 对表单内容进行异步验证
+            $('#register').click(function () {
+                let username = $('#username').val();
+                if (username.length < 2 || username.length > 8) {
+                    $('#username').next().text("用户名长度必须在2-8个字节之间");
+                    return false;
+                } else {
+                    $('#username').next().text("");
+                }
+                let birthday = $('#birthday').val();
+                if (birthday == '') {
+                    $('#birthday').next().text('请选择出生日期');
+                    return false;
+                } else {
+                    $('#birthday').next().text('');
+                }
+                let email_re = new RegExp("\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}");
+                let email = $("#email").val();
+                if (!email_re.test(email)) {
+                    $("#email").next().text("邮箱格式错误！");
+                    return false;
+                } else {
+                    $("#email").next().text("");
+                }
+                // 验证密码
+                let pwd = $('#pwd').val();
+                if (pwd.length < 6 || pwd.length > 20) {
+                    $('#pwd').next().text('请设置长度为6-20之间的密码');
+                    return false;
+                } else {
+                    $('#pwd').next().text('');
+                }
+                let confirm_pwd = $('#confirm_pwd').val();
+                if (pwd != confirm_pwd) {
+                    $('#confirm_pwd').next().text('两次密码不一致！');
+                    return false;
+                } else {
+                    $('#confirm_pwd').next().text('');
+                }
+                // 提交表单
+                $('#myform').submit()
+            })
+        })
+    </script>
+{% endblock %}

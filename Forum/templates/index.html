@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}首页{% endblock %}
+{% block link %}
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css"/>
+{% endblock %}
+{% block main %}
+    <div class="content">
+        <div class="content-left">
+            <div class="new-post">
+                <img src="/static/img/timg.jpg" alt="">
+
+                <ul>
+                    <h4>最新帖子</h4>
+                    {% for new_post in new_posts %}
+                        <li><a href="">{{ new_post.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <!-- 贴子展示 -->
+            <div class="post-show">
+                <div class="post-nav">
+                    <ul class="nav nav-pills">
+                        <li role="presentation"><a href="/ ">全部</a></li>
+                        <li role="presentation"><a href="/校园随谈">校园随谈</a></li>
+                        <li role="presentation"><a href="/校园八卦">校园八卦</a></li>
+                        <li role="presentation"><a href="/学习交流">学习交流</a></li>
+                        <li role="presentation"><a href="/校园活动">校园活动</a></li>
+                        <li role="presentation"><a href="/跳蚤市场">跳蚤市场</a></li>
+                        <li role="presentation"><a href="/失物招领">失物招领</a></li>
+                    </ul>
+                </div>
+                <div class="post-list">
+                    <div class="list-group">
+                        {% for post in posts %}
+                            <a href="/post/post_detail/{{ post.pk }}" class="list-group-item">{{ post.title }}
+                                <span class="badge">浏览：{{ post.browse_nums }}</span>
+                                <span class="badge">发表时间:{{ post.create_time|date:'Y-m-d H:m:s' }}</span>
+                                <span class="badge">作者:{{ post.user }}</span>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="content-right">
+            <img src="/static/img/校徽.jpg" alt="">
+            <form action="/user/query" method="get">
+                <input type="text" name="q" value="" placeholder="请输入关键词">
+                <input type="submit" value="搜索贴子"/>
+            </form>
+            <a href="/post/pub_post">
+                <button type="button" class="btn btn-info">我要发帖</button>
+            </a>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        $(function () {
+
+        })
+    </script>
+{% endblock %}

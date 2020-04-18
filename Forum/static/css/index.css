@@ -1,0 +1,37 @@
+.content-left .new-post{
+	display: flex;
+}
+.content-left .new-post img{
+	margin-left: 10px;
+}
+.content-left ul{
+	margin-left: 10px;
+	width: 100%;
+}
+.content-left ul li{
+	margin-left: 10px;
+}
+.content-left ul h4{
+	font-family: "仿宋";
+	font-size: 24px;
+	color: blueviolet;
+	width: 90%;
+	border-bottom: 2px solid #F1F3F4;
+}
+.content-left .post-show{
+	margin-top: 10px;
+}
+.content-left .post-show .post-list{
+	margin-top: 10px;
+	padding-left: 20px;
+}
+.content-right{
+	text-align: center;
+}
+.content-right img{
+	width: 90%;
+	margin-bottom: 10px;
+}
+.content-right form{
+	margin-bottom: 10px;
+}

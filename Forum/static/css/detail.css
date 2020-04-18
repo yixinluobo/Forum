@@ -1,0 +1,214 @@
+.content-right{
+	background-color: #F1F3F4;
+	margin-top: -10px;
+	height: 500px;
+}
+.content-right img{
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	margin-left: 30%;
+	margin-top: 10px;
+}
+.content-right .autor-info{
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+.content-left{
+	padding: 0 20px;
+}
+.content-left .title{
+	width: 90%;
+	text-align: center;
+}
+.content-left .post-detail{
+	text-indent: 2em;
+	font-size: 18px;
+	font-family: "仿宋";
+	font-weight: 500;
+}
+.content .post-detail img{
+    width: 30%;
+    margin-left: 30px;
+}
+
+/*帖子详情页*/
+.reply_mian .floor_list {
+    position:relative;
+    min-height:200px;
+    border:5px solid #eee;
+}
+
+.reply_mian .floor_list div.lf {
+    position:absolute;
+    top:0px;
+    left:0px;
+    z-index:1;
+    width:165px;
+}
+.reply_mian .floor_list div.lf p{
+    height:30px;
+    border-bottom:1px solid #eee;
+    line-height:30px;
+    background:url('../img/supermod.gif') no-repeat 0 50%;
+    padding-left:20px;
+}
+
+.reply_mian .floor_list div.lf div{
+    margin:15px;
+    border:5px solid #fff;
+    height:130px;
+    border-radius:5px;
+    box-shadow:0px 0px 3px #666;
+}
+
+.reply_mian .floor_list div.lf div img {
+    width:100%;
+    height:100%;
+}
+
+
+.reply_mian .floor_list div.line {
+    position:absolute;
+    top:0px;
+    left:163px;
+    width:2px;
+    height:100%;
+    background:#d8d8d8;
+
+}
+
+.reply_mian .floor_list div.rf {
+    width:100%;
+    height:auto;
+    box-sizing:border-box;
+   -moz-box-sizing:border-box; 
+   -webkit-box-sizing:border-box; 
+    padding:0 0 0 165px;
+    min-height:200px;
+}
+
+
+.reply_mian .floor_list div.rf p.title{
+    height:30px;
+    line-height:30px;
+    border-bottom:1px solid #eee;
+
+}
+.reply_mian .floor_list div.rf p.title span:first-child{
+    display:inline-block;
+    background:url('../img/supermod.gif') no-repeat 5px 50%;
+    text-indent:30px;
+}
+.reply_mian .floor_list div.rf p.title span:last-child{
+    float:right;
+    padding-right:10px;
+}
+.reply_mian .floor_list div.rf p.content{
+    box-sizing:border-box;
+   -moz-box-sizing:border-box; 
+   -webkit-box-sizing:border-box; 
+    padding:10px;
+    line-height:1.4;
+    letter-spacing:1px;
+    font-family:'宋体','微软雅黑',Arial;
+    min-height:140px;
+}
+.reply_mian .floor_list div.rf p.bottom{
+    height:30px;
+    line-height:30px;
+    border-top:1px solid #eee;
+
+}
+.reply_mian .floor_list div.rf p.bottom span:first-child{
+    display:inline-block;
+    background:url('../img/fastreply.gif') no-repeat 5px 50%;
+    text-indent:30px;
+}
+.reply_mian .floor_list div.rf p.bottom span:first-child strong{
+    font-weight:normal;
+}
+.reply_mian .floor_list div.rf p.bottom span:first-child strong:hover{
+    color:#f00633;
+    cursor:pointer;
+}
+.reply_mian .floor_list div.rf p.bottom span:last-child{
+    float:right;
+    padding-right:18px;
+    font-size:12px;
+}
+
+.reply_mian .floor_list div.rf p.bottom span:last-child:hover{
+    color:#f00633;
+    cursor:pointer;
+}
+.reply_mian .floor_list div.rf div.comment_list{
+     box-sizing:border-box;
+   -moz-box-sizing:border-box; 
+   -webkit-box-sizing:border-box; 
+    background:#eee;
+    overflow:hidden;
+    background:#f5f6f9;
+    display:none;
+    opacity:1;
+
+}
+.reply_mian .floor_list div.rf div.comment_list div.list_main{
+    margin:0 0 10px 0;
+    padding:10px 0px 10px 10px;
+    border-bottom:1px solid #999;
+    position:relative;
+}
+.reply_mian .floor_list div.rf div.comment_list div.list_main:last-child{
+     border-bottom:none
+}
+.reply_mian .floor_list div.rf div.comment_list div.list_main img{
+    width:60px;
+    height:60px;
+    float:left;
+    border-radius:30px;
+    box-shadow:0px 0px 2px #999;
+    position:absolute;
+    top:10px;
+    left:10px;
+
+}
+.reply_mian .floor_list div.rf div.comment_list div.list_main p.content{
+   overflow:hidden;
+   margin:-5px 0 0 0;
+   box-sizing:border-box;
+   padding-left:75px;
+}
+.reply_mian .floor_list div.rf div.comment_list div.list_main div{
+   clear:both;
+   text-align:right;
+   font-size:12px;
+   margin:0 0 10px 0;
+}
+.reply_mian .floor_list div.rf div.comment_list div.list_main div span:last-child{
+   margin:0 15px 0 10px;
+}
+
+.reply_mian .floor_list div.rf div.comment_list div.list_main span.btn{
+   display:inline-block;
+   width:100px;
+   height:40px;
+   line-height:40px;
+   background:#28b7f3;
+   text-align:center;
+   margin:10px 10px 0 0;
+   border-radius:5px;
+   color:#fff!important;
+   font-size:14px;
+}
+.reply_mian .floor_list div.rf div.comment_list div.list_main span.btn:hover{
+  background:#dc143b;
+  cursor:pointer;
+  color:#fff!important;
+}
+h3{
+	border-bottom: 1px solid #DCDCDC;
+	border-top: 1px solid #DCDCDC;
+}
+
